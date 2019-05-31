@@ -1,6 +1,6 @@
-//Variables needed for timer, correct answers, incorrect answers, unanswered questions, questions, possible answers choices, correct answer choice//
+//Variables needed for timer, correct answers, incorrect answers, unanswered questions, questions, possible answers choices, correct answer choice
 
-var timeLeft = 10;
+var timeLeft = 3;
 var timerRunning = false;
 var correctlyAnswered = 0;
 var incorrectlyAnswered = 0;
@@ -8,13 +8,13 @@ var unanswered = 0;
 var intervalId = null;
 
 //Start-game button and Timer countdown from 100. Gives 10s per question
-function countDown () {
+function countDown() {
   timeLeft--;
-  $("#timer").text(timeLeft); 
+  $("#timer").text(timeLeft);
   if (timeLeft <= 0) {
     clearInterval(intervalId);
     $("#timer").text(0)
-  }
+  } timeIsUp();
 }
 
 function start() {
@@ -27,6 +27,35 @@ function start() {
 window.onload = function () {
   $("#start-game").on("click", start);
   clearInterval(intervalId);
+}
+
+function stop() {
+  clearInterval(intervalId);
+  timerRunning = false;
+};
+
+//This should generate a new page when time runs out, similar to when the finished button is clicked
+function timeIsUp() {
+  if (timeLeft === 0) {
+    var myNewDiv = document.createElement('div');
+    myNewDiv.innerHTML = '<div class="wrapper done">\
+    <h2 id="question">"You ran out of time."</h2>\
+    <h3>Correct Answers: <span id="correct">' + correctlyAnswered + '</span></h3>\
+    <h3>Incorrect Answers: <span id="incorrect">' + incorrectlyAnswered + '</span></h3>\
+    <h3>Unanswered: <span id="unanswerred">' + unanswered + '</span></h3>\
+    <button id="try-again" type="button" class="btn btn-primary btn-lg">Try Again!</button>\
+ </div>';
+    stop();
+    $('.questions').html(myNewDiv);
+    $('#try-again').click(function restart() {
+      questionsGo();
+      timeLeft = 3;
+      $("#start-game").on("click", start);
+      $("#timer").text(timeLeft);
+      clearInterval(intervalId);
+      document.querySelector('.done').remove();
+    });
+  }
 }
 
 //Question and Answer choices in an array
@@ -93,20 +122,20 @@ var qAndA = [
   },
 
 ];
-//Create a function with a for loop to cycle through each question. Seemed easier than writing out each question and answer set to the document than creating div after div in the HTML//
+//Create a function with a for loop to cycle through each question. I started going in one direction with the assignment and realized I was mixing the two options by accident. This seemed easier than writing out each question and answer set to the document than creating div after div in the HTML
 function questionsGo() {
   for (var i = 0; i < 10; i++) {
     var myDiv = document.createElement('div');
     myDiv.innerHTML = '<div class="wrapper questions">\
     <h2 id="question">' + qAndA[i].q + '</h2>\
     <ul>\
-      <li class="answer1"><input type="radio" name="group' + [i] + ' id="radio-1">\
+      <li class="answer1"><input type="radio" name="group' + i + '" id="radio-1">\
       <label for="radio-1"></label>' + qAndA[i].choices[0] + '</li>\
-      <li class="answer2"><input type="radio" name="group' + [i] + ' id="radio-1">\
+      <li class="answer2"><input type="radio" name="group' + i + '" id="radio-1">\
       <label for="radio-1"></label>' + qAndA[i].choices[1] + '</li>\
-      <li class="answer3"><input type="radio" name="group' + [i] + ' id="radio-1">\
+      <li class="answer3"><input type="radio" name="group' + i + '" id="radio-1">\
       <label for="radio-1"></label>' + qAndA[i].choices[2] + '</li>\
-      <li class="answer4"><input type="radio" name="group' + [i] + ' id="radio-1">\
+      <li class="answer4"><input type="radio" name="group' + i + '" id="radio-1">\
       <label for="radio-1"></label>' + qAndA[i].choices[3] + '</li>\
     </ul>\
  </div>';
@@ -115,25 +144,38 @@ function questionsGo() {
 }
 questionsGo();
 
-$('#done').click(function finishedPage(){
+//This is the finsihed button functionality to bring you to a new page
+$('#done').click(function finishedPage() {
   var myNewDiv = document.createElement('div');
-    myNewDiv.innerHTML = '<div class="wrapper questions">\
+  myNewDiv.innerHTML = '<div class="wrapper finished">\
     <h2 id="question">"You have completed the quiz!"</h2>\
-    <h3>Correct Answers: <span id="correct"></span></h3>\
-    <h3>Incorrect Answers: <span id="incorrect"></span></h3>\
-    <h3>Unanswered: <span id="unanswerred"></span></h3>\
+    <h3>Correct Answers: <span id="correct">' + correctlyAnswered + '</span></h3>\
+    <h3>Incorrect Answers: <span id="incorrect">' + incorrectlyAnswered + '</span></h3>\
+    <h3>Unanswered: <span id="unanswerred">' + unanswered + '</span></h3>\
+    <button id="try-again" type="button" class="btn btn-primary btn-lg">Try Again!</button>\
  </div>';
-    $('.questions').html(myNewDiv);
+  stop();
+  $('.questions').html(myNewDiv);
+  $('#try-again').click(function restart() {
+    questionsGo();
+    timeLeft = 3;
+    $("#start-game").on("click", start);
+    $("#timer").text(timeLeft);
+    clearInterval(intervalId);
+    document.querySelector('.finished').remove();
+  });
 });
 
-//The Done button should disable the radio buttons, calculate the total correct, incorrect, and unanswered questions, then display them//
-// $('#done').click(function finishedPage() {
-//   $('#correct').html(correctlyAnswered);
-//   $('#incorrect').html(incorrectlyAnswered);
-//   $('#unanswered').html(unanswered);
-// });
 
-//The Try Again button should start the question round again, but not refresh the page//
-function tryAgain() {
+//This function should create the totals for correct answers, incorrect answers, and unanswered questions
+var checkedAnswers =
+  function answerTally() {
+    for (var i = 0; i < 10; ++i) {
+      $('input[name=group' + i + ']')[qAndA[i].a].checked;
+    };
+  if checkAnswers = true {
+    
+  }
+    correctlyAnswered++; 
 
-}
+  }

@@ -1,6 +1,6 @@
 //Variables needed for timer, correct answers, incorrect answers, unanswered questions, questions, possible answers choices, correct answer choice
 
-var timeLeft = 3;
+var timeLeft = 10;
 var timerRunning = false;
 var correctlyAnswered = 0;
 var incorrectlyAnswered = 0;
@@ -32,7 +32,7 @@ window.onload = function () {
 function stop() {
   clearInterval(intervalId);
   timerRunning = false;
-};
+}
 
 //This should generate a new page when time runs out, similar to when the finished button is clicked
 function timeIsUp() {
@@ -49,7 +49,7 @@ function timeIsUp() {
     $('.questions').html(myNewDiv);
     $('#try-again').click(function restart() {
       questionsGo();
-      timeLeft = 3;
+      timeLeft = 10;
       $("#start-game").on("click", start);
       $("#timer").text(timeLeft);
       clearInterval(intervalId);
@@ -122,9 +122,10 @@ var qAndA = [
   },
 
 ];
+
 //Create a function with a for loop to cycle through each question. I started going in one direction with the assignment and realized I was mixing the two options by accident. This seemed easier than writing out each question and answer set to the document than creating div after div in the HTML
 function questionsGo() {
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < qAndA.length; i++) {
     var myDiv = document.createElement('div');
     myDiv.innerHTML = '<div class="wrapper questions">\
     <h2 id="question">' + qAndA[i].q + '</h2>\
@@ -158,7 +159,7 @@ $('#done').click(function finishedPage() {
   $('.questions').html(myNewDiv);
   $('#try-again').click(function restart() {
     questionsGo();
-    timeLeft = 3;
+    timeLeft = 10;
     $("#start-game").on("click", start);
     $("#timer").text(timeLeft);
     clearInterval(intervalId);
@@ -167,15 +168,14 @@ $('#done').click(function finishedPage() {
 });
 
 
-//This function should create the totals for correct answers, incorrect answers, and unanswered questions
-var checkedAnswers =
-  function answerTally() {
-    for (var i = 0; i < 10; ++i) {
-      $('input[name=group' + i + ']')[qAndA[i].a].checked;
-    };
-  if checkAnswers = true {
-    
+//This function should create the totals for correct answers, incorrect answers, and unanswered questions. I cannot get this to tally up correctly as 'i' keeps showing as 'undefined'
+function answerTally() {
+  for (var i = 0; i < qAndA.length; i++) { 
+    if ($('input[name=group'+ i +']')[qAndA[i].a].checked) {
+      $('#correct').html(correctlyAnswered++);
+    } else {
+      $('#incorrect').html(incorrectlyAnswered++);
+    }
   }
-    correctlyAnswered++; 
-
-  }
+} 
+answerTally();

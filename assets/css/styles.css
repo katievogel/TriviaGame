@@ -46,3 +46,8 @@ ul {
 li { 
     margin: 1em;
 }
+
+.box {
+    margin: auto;
+    max-width: 200px;
+}

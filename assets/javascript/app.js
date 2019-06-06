@@ -1,6 +1,6 @@
 //Variables needed for timer, correct answers, incorrect answers, unanswered questions, questions, possible answers choices, correct answer choice
 
-var timeLeft = 10;
+var timeLeft = 100;
 var timerRunning = false;
 var correctlyAnswered = 0;
 var incorrectlyAnswered = 0;
@@ -38,6 +38,8 @@ function stop() {
 function timeIsUp() {
   if (timeLeft === 0) {
     var myNewDiv = document.createElement('div');
+    stop();
+    answerTally();
     myNewDiv.innerHTML = '<div class="wrapper done">\
     <h2 id="question">"You ran out of time."</h2>\
     <h3>Correct Answers: <span id="correct">' + correctlyAnswered + '</span></h3>\
@@ -45,11 +47,10 @@ function timeIsUp() {
     <h3>Unanswered: <span id="unanswerred">' + unanswered + '</span></h3>\
     <button id="try-again" type="button" class="btn btn-primary btn-lg">Try Again!</button>\
  </div>';
-    stop();
     $('.questions').html(myNewDiv);
     $('#try-again').click(function restart() {
       questionsGo();
-      timeLeft = 10;
+      timeLeft = 100;
       $("#start-game").on("click", start);
       $("#timer").text(timeLeft);
       clearInterval(intervalId);
@@ -147,6 +148,8 @@ questionsGo();
 
 //This is the finsihed button functionality to bring you to a new page
 $('#done').click(function finishedPage() {
+  stop();
+  answerTally();
   var myNewDiv = document.createElement('div');
   myNewDiv.innerHTML = '<div class="wrapper finished">\
     <h2 id="question">"You have completed the quiz!"</h2>\
@@ -155,11 +158,10 @@ $('#done').click(function finishedPage() {
     <h3>Unanswered: <span id="unanswerred">' + unanswered + '</span></h3>\
     <button id="try-again" type="button" class="btn btn-primary btn-lg">Try Again!</button>\
  </div>';
-  stop();
   $('.questions').html(myNewDiv);
   $('#try-again').click(function restart() {
     questionsGo();
-    timeLeft = 10;
+    timeLeft = 100;
     $("#start-game").on("click", start);
     $("#timer").text(timeLeft);
     clearInterval(intervalId);
@@ -168,14 +170,13 @@ $('#done').click(function finishedPage() {
 });
 
 
-//This function should create the totals for correct answers, incorrect answers, and unanswered questions. I cannot get this to tally up correctly as 'i' keeps showing as 'undefined'
+//This function should create the totals for correct answers, incorrect answers, and unanswered questions. Still could not get unanswerred to add up by counting unchecked.
 function answerTally() {
   for (var i = 0; i < qAndA.length; i++) { 
     if ($('input[name=group'+ i +']')[qAndA[i].a].checked) {
-      $('#correct').html(correctlyAnswered++);
+      correctlyAnswered++;
     } else {
-      $('#incorrect').html(incorrectlyAnswered++);
+      incorrectlyAnswered++;
     }
   }
 } 
-answerTally();

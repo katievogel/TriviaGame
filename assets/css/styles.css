@@ -1,21 +1,22 @@
 body {
-    font-family: Helvetica, Arial;
-    background-image: url(../images/banner-1571859.jpg);
-    background-repeat: repeat;
-    background-size: cover;
-    background-position: center;
+    background-color: #d6d5f2;
+    background-image: url("https://www.transparenttextures.com/patterns/type.png");
   }
 
 .jumbotron {
-    background-color: transparent!important;
+    background-color: #0e1114;
+    background-image: url("https://www.transparenttextures.com/patterns/buried.png");
+    font-family: 'Cabin Sketch', cursive;
+    color: rgb(197, 196, 196);
 }
 
 .wrapper {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5em;
+    margin-top: 1em;
     max-width: 50em;
-    background-color: rgb(162, 247, 233);
+    background-color: #e0dff2;
+    background-image: url("https://www.transparenttextures.com/patterns/inflicted.png");
     padding: 2em;
     text-align: center;
     border-radius: 10px;
@@ -23,15 +24,17 @@ body {
 
 h3 {
     color: midnightblue;
+    font-family: 'Zilla Slab', serif;
 }
 
 h2 {
     color: navy;
     text-align: center;
+    font-family: 'Zilla Slab', serif;
 }
 
 h1 {
-    font-family: Trebuchet, Arial;
+    font-family: 'Cabin Sketch', cursive;
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
@@ -41,13 +44,25 @@ h1 {
 ul {
     list-style: none;
     margin-top: 2em;
+    font-family: 'Schoolbell', cursive;
 }
 
 li { 
     margin: 1em;
+    font-family: 'Schoolbell', cursive;
 }
 
 .box {
     margin: auto;
     max-width: 200px;
+}
+
+button {
+    font-family: 'Zilla Slab', serif;
+    font-size: 20px!important;
+    border-style: none!important;
+    margin: 10px;
+    background-color: #283457!important;
+    background-image: url("https://www.transparenttextures.com/patterns/paven.png");
+    color: whitesmoke;
 }

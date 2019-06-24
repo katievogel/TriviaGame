@@ -1,6 +1,6 @@
 //Variables needed for timer, correct answers, incorrect answers, unanswered questions, questions, possible answers choices, correct answer choice
 
-var timeLeft = 100;
+var timeLeft = 60;
 var timerRunning = false;
 var correctlyAnswered = 0;
 var incorrectlyAnswered = 0;
@@ -50,11 +50,14 @@ function timeIsUp() {
     $('.questions').html(myNewDiv);
     $('#try-again').click(function restart() {
       questionsGo();
-      timeLeft = 100;
+      timeLeft = 60;
       $("#start-game").on("click", start);
       $("#timer").text(timeLeft);
       clearInterval(intervalId);
       document.querySelector('.done').remove();
+      correctlyAnswered = 0;
+      incorrectlyAnswered = 0;
+      unanswered = 0;
     });
   }
 }
@@ -63,7 +66,7 @@ function timeIsUp() {
 var qAndA = [
 
   {
-    q: "Which of these is not a noble gas?",
+    q: "Which of these is a noble gas?",
     a: 0,
     choices: ["Xenon", "Hydrogen", "Sulfide", "Methane"]
   },
@@ -118,13 +121,13 @@ var qAndA = [
 
   {
     q: "This is the deepest known place in the ocean.",
-    a: 1,
+    a: 0,
     choices: ["Mariana Trench", "Marinara Jar", "Grand Canyon", "Great Bahama Canyon"]
   },
 
 ];
 
-//Create a function with a for loop to cycle through each question. I started going in one direction with the assignment and realized I was mixing the two options by accident. This seemed easier than writing out each question and answer set to the document than creating div after div in the HTML
+//Create a function with a for loop to cycle through each question. 
 function questionsGo() {
   for (var i = 0; i < qAndA.length; i++) {
     var myDiv = document.createElement('div');
@@ -161,21 +164,27 @@ $('#done').click(function finishedPage() {
   $('.questions').html(myNewDiv);
   $('#try-again').click(function restart() {
     questionsGo();
-    timeLeft = 100;
+    timeLeft = 60;
     $("#start-game").on("click", start);
     $("#timer").text(timeLeft);
     clearInterval(intervalId);
     document.querySelector('.finished').remove();
+    correctlyAnswered = 0;
+    incorrectlyAnswered = 0;
+    unanswered = 0;
   });
 });
 
 
-//This function should create the totals for correct answers, incorrect answers, and unanswered questions. Still could not get unanswerred to add up by counting unchecked.
+//This function creates the totals for correct answers, incorrect answers, and unanswered questions. 
 function answerTally() {
-  for (var i = 0; i < qAndA.length; i++) { 
-    if ($('input[name=group'+ i +']')[qAndA[i].a].checked) {
+  for (var i = 0; i < qAndA.length; i++) {
+    if ($('input[name=group' + i + ']')[qAndA[i].a].checked) {
       correctlyAnswered++;
-    } else {
+    } else if ($('input[name=group' + i + ']:checked').length === 0) {
+      unanswered++;
+    }
+    else {
       incorrectlyAnswered++;
     }
   }

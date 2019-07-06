@@ -4,10 +4,11 @@ body {
   }
 
 .jumbotron {
-    background-color: #0e1114;
-    background-image: url("https://www.transparenttextures.com/patterns/buried.png");
+    background-color: #474747;
+    background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
     font-family: 'Cabin Sketch', cursive;
     color: rgb(197, 196, 196);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
 }
 
 .wrapper {
@@ -15,11 +16,12 @@ body {
     margin-right: auto;
     margin-top: 1em;
     max-width: 50em;
-    background-color: #e0dff2;
-    background-image: url("https://www.transparenttextures.com/patterns/inflicted.png");
+    background-color: #f2f2f2;
+    background-image: url("https://www.transparenttextures.com/patterns/lined-paper.png");
     padding: 2em;
     text-align: center;
     border-radius: 10px;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
 }
 
 h3 {
@@ -65,4 +67,5 @@ button {
     background-color: #283457!important;
     background-image: url("https://www.transparenttextures.com/patterns/paven.png");
     color: whitesmoke;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
 }
